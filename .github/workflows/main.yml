@@ -1,0 +1,35 @@
+name: Deploy to Lovable
+
+on:
+  push:
+    branches:
+      - main  # غيرها إذا فرعك الرئيسي مو main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
+      BINANCE_SECRET_KEY: ${{ secrets.BINANCE_SECRET_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # أو أي إصدار تحتاجه
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Lovable
+        run: |
+          echo "🔄 Deploying to Lovable..."
+          # إذا عندك أمر نشر من CLI أو API لـ lovable.dev ضيفه هنا
+          # مثال فقط: curl أو أمر مخصص للنشر
